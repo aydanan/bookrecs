@@ -1,0 +1,54 @@
+.book-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  
+  .book-details-container {
+    display: flex;
+    flex: 1;
+  }
+  
+  .book-image-container {
+    margin-right: 20px;
+  }
+  
+  .book-details {
+    max-width: 600px;
+  }
+  
+  .subject-list {
+    width: 100%;
+    max-height: 350px;
+    overflow-y: auto;
+    column-gap: 40px;
+  }
+  
+  .subject {
+    cursor: pointer;
+    position: relative;
+    padding: 5px;
+    display: inline-block;
+  }
+  
+  .subject::before {
+    content: '\2022'; /* Unicode for bullet point */
+    margin-right: 8px;
+  }
+  
+  .subject::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 95%;
+    height: 2px;
+    background-color: rgb(229, 150, 163);
+    transition: width 0.5s, background-color 0.5s;
+  }
+  
+  .subject:hover::after {
+    width: 95%;
+    background-color: rgb(57, 21, 21);
+  }
+  

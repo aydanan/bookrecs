@@ -1,0 +1,57 @@
+.book-grid {
+  margin: 0 auto;
+}
+
+.book-item {
+  text-align: center;
+}
+
+.book-item img {
+  width: 70%;
+  height: auto;
+}
+
+.book-title {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.book-author {
+  font-size: 16px;
+}
+
+.custom-arrow {
+  position: absolute;
+  top: 40%;
+  width: 30px;
+  height: 40px;
+  /* display: flex; */
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 1;
+  transition: color 0.3s, transform 0.3s;
+}
+
+.custom-prev-arrow {
+  left: -40px;
+}
+
+.custom-next-arrow {
+  right: -30px;
+}
+
+.custom-arrow svg {
+  width: 20px;
+  height: 20px;
+  color: #333;
+}
+
+
+.custom-arrow:hover {
+transform: scale(1.1); 
+}
+
+.custom-arrow:hover svg {
+color: rgb(223, 156, 187); 
+}
