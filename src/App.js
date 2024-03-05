@@ -20,7 +20,8 @@ const App = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [selectedSubject, setSelectedSubject] = useState('');
   const [subjectBooksLoaded, setSubjectBooksLoaded] = useState(false);
-  
+  const [error, setError] = useState(null); // State for handling errors
+
   const subjectBooksRef = useRef(null);
 
   useEffect(() => {
@@ -40,7 +41,7 @@ const App = () => {
       setShowSubjectSearch(false);
       setSelectedSubject(''); 
     } catch (error) {
-      console.error('Error fetching data:', error);
+      setError('Error fetching data, please try again.'); // Set error state
     } finally {
       setLoading(false);
     }
@@ -62,10 +63,10 @@ const App = () => {
       const data = await response.json();
       setSubjectBooks(data.works);
     } catch (error) {
-      console.error('Error fetching subject data:', error);
+      setError('Error fetching subject data, please try again.'); // Set error state
     } finally {
       setSubjectLoading(false);
-      setSubjectBooksLoaded(true); // Set subjectBooksLoaded to true when subject books are loaded
+      setSubjectBooksLoaded(true);
     }
   };
 
@@ -81,7 +82,7 @@ const App = () => {
         const data = await response.json();
         setSubjectBooks(data.works);
       } catch (error) {
-        console.error('Error fetching subject data:', error);
+        setError('Error fetching subject data, please try again.'); // Set error state
       } finally {
         setSubjectLoading(false);
         setSubjectBooksLoaded(true); 
@@ -121,9 +122,13 @@ const App = () => {
       {selectedSubject && !subjectLoading && (
         <div className="subject-books" ref={subjectBooksRef}>
           <h2>Recommended Books for '{selectedSubject}'</h2>
-          {Array.isArray(subjectBooks) && subjectBooks.length > 0 ? (
-            <BookList books={subjectBooks} />
-          ) : null} 
+          {error ? ( // Check if there's an error
+            <p>{error}</p>
+          ) : (
+            Array.isArray(subjectBooks) && subjectBooks.length > 0 ? (
+              <BookList books={subjectBooks} />
+            ) : null
+          )}
         </div>
       )}
     </div>

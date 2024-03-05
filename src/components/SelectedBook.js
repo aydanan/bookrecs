@@ -30,15 +30,19 @@ const SelectedBook = ({ book, handleSubjectClick }) => {
           <p>{book.author_name}</p>
           <p>Subjects:</p>
           <ul className="subject-list">
-            {book.subject.map((subject, index) => (
-              <li key={index} className="subject" onClick={() => handleSubjectClick(subject)}>
-                {subject}
-                <span
-                  className="underline"
-                  style={{ width: underlineWidths[subject] }}
-                ></span>
-              </li>
-            ))}
+            {book.subject ? (
+              book.subject.map((subject, index) => (
+                <li key={index} className="subject" onClick={() => handleSubjectClick(subject)}>
+                  {subject}
+                  <span
+                    className="underline"
+                    style={{ width: underlineWidths[subject] }}
+                  ></span>
+                </li>
+              ))
+            ) : (
+              <li>Error when retrieving information about that book, please try another.</li>
+            )}
           </ul>
         </div>
       </div>
