@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import SearchForm from './components/SearchForm';
 import SelectedBook from './components/SelectedBook';
 import Loader from './components/Loader';
@@ -19,6 +19,15 @@ const App = () => {
   const [showSubjectSearch, setShowSubjectSearch] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
   const [selectedSubject, setSelectedSubject] = useState('');
+  const [subjectBooksLoaded, setSubjectBooksLoaded] = useState(false);
+  
+  const subjectBooksRef = useRef(null);
+
+  useEffect(() => {
+    if (subjectBooksLoaded && subjectBooksRef.current) {
+      subjectBooksRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [subjectBooksLoaded]);
 
   const handleSearch = async () => {
     setLoading(true);
@@ -29,7 +38,7 @@ const App = () => {
       setSelectedBook(null);
       setSubjectBooks([]);
       setShowSubjectSearch(false);
-      setSelectedSubject(''); // Clear selected subject
+      setSelectedSubject(''); 
     } catch (error) {
       console.error('Error fetching data:', error);
     } finally {
@@ -41,7 +50,7 @@ const App = () => {
     setSelectedBook(book);
     setSearchResults([]);
     setShowSubjectSearch(true);
-    setSelectedSubject(''); // Clear selected subject when a new book is selected
+    setSelectedSubject(''); 
   };
 
   const handleSubjectSearch = async () => {
@@ -56,12 +65,13 @@ const App = () => {
       console.error('Error fetching subject data:', error);
     } finally {
       setSubjectLoading(false);
+      setSubjectBooksLoaded(true); // Set subjectBooksLoaded to true when subject books are loaded
     }
   };
 
   const handleSubjectClick = async (subject) => {
     if (subject.trim() !== "") { 
-      setSelectedSubject(subject); // Set selected subject
+      setSelectedSubject(subject); 
       setSubjectQuery(subject.replace(/\s/g, '_').toLowerCase()); 
       setSubjectLoading(true);
       try {
@@ -74,6 +84,7 @@ const App = () => {
         console.error('Error fetching subject data:', error);
       } finally {
         setSubjectLoading(false);
+        setSubjectBooksLoaded(true); 
       }
     }
   };
@@ -108,7 +119,7 @@ const App = () => {
         )}
       </div>
       {selectedSubject && !subjectLoading && (
-        <div className="subject-books">
+        <div className="subject-books" ref={subjectBooksRef}>
           <h2>Recommended Books for '{selectedSubject}'</h2>
           {Array.isArray(subjectBooks) && subjectBooks.length > 0 ? (
             <BookList books={subjectBooks} />

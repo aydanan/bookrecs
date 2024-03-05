@@ -26,7 +26,7 @@ const BookList = ({ books }) => {
     slidesToScroll: 2,
     prevArrow: <CustomPrevArrow />,
     nextArrow: <CustomNextArrow />,
-    dots: true,
+    // dots: true,
   };
 
   return (
