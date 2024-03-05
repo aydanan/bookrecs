@@ -1,27 +1,57 @@
 .book-container {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
+
+  display: flex;
+  /* justify-content: center; */
+  align-items: flex-start;
+}
+
+.book-details-container {
+  display: flex;
+  flex: 1;
+  align-items: flex-start;
+}
+
+.book-image-container {
+  margin-right: 20px;
+}
+
+.book-image-container img {
+  width: 100%;
+  height: auto;
+}
+
+.book-details {
+  max-width: 600px;
+  display: flex;
+  flex-direction: column; 
+}
+
+.book-details h2 {
+  font-size: 28px;
+  font-weight: bold;
+  margin-top: 0;
+  margin-bottom: 0px;
+}
+
+.book-details p {
+  font-size: 18px;
+  margin-bottom: -3px;
+  /* font-weight: bold; */
+  /* color: rgb(152, 14, 99); */
+}
+
+  .book-details ul {
+    font-size: 15px;
+    /* font-weight: bold; */
+    color: rgb(152, 14, 99);
   }
   
-  .book-details-container {
-    display: flex;
-    flex: 1;
-  }
-  
-  .book-image-container {
-    margin-right: 20px;
-  }
-  
-  .book-details {
-    max-width: 600px;
-  }
   
   .subject-list {
-    width: 100%;
+    width: 80%;
     max-height: 350px;
     overflow-y: auto;
-    column-gap: 40px;
+    margin-left: -45px;
   }
   
   .subject {
@@ -29,6 +59,7 @@
     position: relative;
     padding: 5px;
     display: inline-block;
+    /* margin-left: -10px; */
   }
   
   .subject::before {
@@ -40,15 +71,15 @@
     content: '';
     position: absolute;
     bottom: 0;
-    left: 0;
-    width: 95%;
+    left: 19px;
+    width: 85%;
     height: 2px;
     background-color: rgb(229, 150, 163);
     transition: width 0.5s, background-color 0.5s;
   }
   
   .subject:hover::after {
-    width: 95%;
+    width: 90%;
     background-color: rgb(57, 21, 21);
   }
   

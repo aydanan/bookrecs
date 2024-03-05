@@ -1,8 +1,14 @@
+
+body {
+  background-color: #d7bda6;
+}
+
 .app {
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
   font-family: 'Playfair Display', serif; 
+  z-index: 0;
 }
 
 .bulk {
@@ -10,30 +16,50 @@
   align-items: center;
   max-width: 570px; 
   margin: 10px auto 0px; 
+  position: relative;
+  z-index: 5;
 }
 
 .main-content {
   padding: 20px;
   overflow-y: auto;
+  z-index: 5;
+  display: flex; 
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  margin-bottom: 20px;
 }
 
 .title {
-  font-size: 30px;
-  font-weight: bold;
+  font-size: 55px;
+  font-weight:bold;
   margin-bottom: 10px;
   text-align: center; 
+  color: rgb(152, 14, 99);
+  /* font-family: 'Times New Roman', Times, serif; */
+  /* white-space: nowrap; */
+  /* transform: translateX(-20%);  */
+  z-index: 5;
 }
 
 .subtitle {
-  font-size: 16px;
+  font-size: 17px;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
+
 }
 
-.search-form {
-  margin-bottom: 20px;
-  display: flex; 
-  justify-content: center;
+.subtitle:nth-child(3){
+  text-decoration: none;
+  /* font-weight: bold; */
+}
+
+
+.search-form-container {
+  margin-bottom: 30px;
+  margin-top: 10px; 
+  left: 78px;
 }
 
 .search-form input {
@@ -41,15 +67,11 @@
   font-size: 18px; 
 }
 
-.search-form button {
-  padding: 15px 30px; 
-  font-size: 18px; 
-}
 
 .loader-container {
   position: relative;
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 50px;
 }
 
 .loader {
@@ -61,4 +83,30 @@
 
 .book-grid-container {
   margin-top: 50px;
+}
+
+.girl {
+  position: fixed;
+  bottom: -10px;
+  left: 60%;
+  transform: translateX(22%);
+  z-index: 0;
+}
+
+.girl img {
+  width: 100%;
+}
+
+.subject-books{
+  margin-top: 100px;
+  width: 750px;
+  margin: 0 auto; 
+  padding: 10px;
+}
+
+.subject-books h2{
+  font-size: 30px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: rgb(152, 14, 99);
 }

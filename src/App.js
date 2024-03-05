@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import Header from './components/Header';
 import SearchForm from './components/SearchForm';
 import SelectedBook from './components/SelectedBook';
 import Loader from './components/Loader';
 import BookGrid from './components/BookGrid';
 import BookList from './components/BookList';
+
+import girl from '/Users/aydanyagublu/book-recs/src/components/images/girlbook.png'
+
 import './App.css';
 
 const App = () => {
@@ -16,6 +18,7 @@ const App = () => {
   const [subjectLoading, setSubjectLoading] = useState(false);
   const [showSubjectSearch, setShowSubjectSearch] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
+  const [selectedSubject, setSelectedSubject] = useState('');
 
   const handleSearch = async () => {
     setLoading(true);
@@ -26,6 +29,7 @@ const App = () => {
       setSelectedBook(null);
       setSubjectBooks([]);
       setShowSubjectSearch(false);
+      setSelectedSubject(''); // Clear selected subject
     } catch (error) {
       console.error('Error fetching data:', error);
     } finally {
@@ -37,6 +41,7 @@ const App = () => {
     setSelectedBook(book);
     setSearchResults([]);
     setShowSubjectSearch(true);
+    setSelectedSubject(''); // Clear selected subject when a new book is selected
   };
 
   const handleSubjectSearch = async () => {
@@ -55,8 +60,9 @@ const App = () => {
   };
 
   const handleSubjectClick = async (subject) => {
-    if (subject.trim() !== "") { // Check if the subject is not empty
-      setSubjectQuery(subject.replace(/\s/g, '_').toLowerCase()); // Set subject query to the clicked subject with underscores and lowercase
+    if (subject.trim() !== "") { 
+      setSelectedSubject(subject); // Set selected subject
+      setSubjectQuery(subject.replace(/\s/g, '_').toLowerCase()); 
       setSubjectLoading(true);
       try {
         const response = await fetch(
@@ -74,11 +80,17 @@ const App = () => {
 
   return (
     <div className="app">
+      <div className="girl">
+        <img src={girl} alt="Girl with book" />
+      </div>
       <div className="main-content">
         <div className="bulk">
-          <h1 className="title">Aydan's Book Recommender</h1>
+          <h1 className="title">Subject-Wise Book Recommender</h1>
           <p className="subtitle">
-            Search for a book you like using the search below. Then select a book from the grid.
+            Have you ever read a book that you loved but you weren't sure what about it struck you? Maybe you liked it because the narrator was unreliable, maybe you liked it because it tackled themes of friendship, or maybe you just liked it because it was a fantasy genre book.
+          </p>
+          <p className="subtitle">
+            In any case, use the search below to find a book you like and select a theme/subject/aspect. Upon doing so, you will be recommended books that share these characteristics.
           </p>
           <SearchForm query={query} setQuery={setQuery} handleSearch={handleSearch} />
           {loading ? (
@@ -86,29 +98,23 @@ const App = () => {
               <Loader className="loader" />
             </div>
           ) : (
-            <div className="book-grid-container"> 
+            <div className="book-grid-container">
               <BookGrid books={searchResults} handleBookSelect={handleBookSelect} />
             </div>
           )}
         </div>
-
         {selectedBook && (
-          <>
-            <SelectedBook book={selectedBook} handleSubjectClick={handleSubjectClick} />
-            {subjectLoading ? (
-              <div className="loader-container"> {/* Adjusted margin-bottom for loader */}
-                <Loader className="loader" />
-              </div>
-            ) : (
-              Array.isArray(subjectBooks) && subjectBooks.length > 0 ? (
-                <BookList books={subjectBooks} />
-              ) : (
-                <p>No books found for the selected subject.</p>
-              )
-            )}
-          </>
+          <SelectedBook book={selectedBook} handleSubjectClick={handleSubjectClick} />
         )}
       </div>
+      {selectedSubject && !subjectLoading && (
+        <div className="subject-books">
+          <h2>Recommended Books for '{selectedSubject}'</h2>
+          {Array.isArray(subjectBooks) && subjectBooks.length > 0 ? (
+            <BookList books={subjectBooks} />
+          ) : null} 
+        </div>
+      )}
     </div>
   );
 };

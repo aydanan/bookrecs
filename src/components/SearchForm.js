@@ -1,4 +1,6 @@
 import React from 'react';
+import { FaSearch } from 'react-icons/fa';
+import './SearchForm.css';
 
 const SearchForm = ({ query, setQuery, handleSearch }) => {
   const handleKeyPress = (e) => {
@@ -8,7 +10,11 @@ const SearchForm = ({ query, setQuery, handleSearch }) => {
   };
 
   return (
-    <div className="search-form">
+    <div className="search-form-container">
+      <span className="search-icon">
+        <FaSearch />
+      </span>
+      <div className="search-form">
       <input
         type="text"
         placeholder="Search for a book"
@@ -16,7 +22,7 @@ const SearchForm = ({ query, setQuery, handleSearch }) => {
         onChange={(e) => setQuery(e.target.value)}
         onKeyPress={handleKeyPress}
       />
-      <button onClick={handleSearch}>Search</button>
+      </div>
     </div>
   );
 };

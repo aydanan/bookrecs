@@ -1,0 +1,58 @@
+.book {
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 5px; 
+  }
+  
+  .book img {
+    width: 180px;
+    height: 280px;
+    object-fit: cover;
+    margin-bottom: 10px;
+  }
+  
+  .slick-slider {
+    text-align: center; 
+  }
+  
+  .slick-track {
+    display: flex;
+    justify-content: center; 
+  }
+  
+  .custom-prev-arrow,
+  .custom-next-arrow {
+    position: absolute;
+    top: 40%;
+    width: 30px;
+    height: 40px;
+    cursor: pointer;
+    z-index: 1;
+    transition: color 0.3s, transform 0.3s;
+  }
+  
+  .custom-prev-arrow {
+    left: -45px; 
+  }
+  
+  .custom-next-arrow {
+    right: -45px; 
+  }
+  
+  .custom-arrow svg {
+    width: 20px;
+    height: 20px;
+    color: #333;
+  }
+  
+  .custom-arrow:hover {
+    transform: scale(1.1);
+  }
+  
+  .custom-arrow:hover svg {
+    color: rgb(152, 14, 99);
+  }
+  
+  .slick-dots {
+    bottom: 40px;
+  }
