@@ -35,10 +35,14 @@ const BookList = ({ books }) => {
         <Slider {...settings}>
           {books.map((book, index) => (
             <div key={index} className="book">
-              <img
-                src={`https://covers.openlibrary.org/b/id/${book.cover_id}-M.jpg`}
-                alt="Book Cover"
-              />
+              {book.cover_id ? (
+                <img
+                  src={`https://covers.openlibrary.org/b/id/${book.cover_id}-M.jpg`}
+                  alt="Book Cover"
+                />
+              ) : (
+                <div className="no-cover">No cover found :(</div>
+              )}
               <div>
                 <h3>{book.title}</h3>
                 <p>{book.authors ? book.authors[0].name : 'Unknown'}</p>
