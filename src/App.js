@@ -4,6 +4,7 @@ import SelectedBook from './components/SelectedBook';
 import Loader from './components/Loader';
 import BookGrid from './components/BookGrid';
 import BookList from './components/BookList';
+import Info from './components/Info';
 
 import girl from '/Users/aydanyagublu/book-recs/src/components/images/girlbook.png'
 
@@ -104,6 +105,7 @@ const App = () => {
           <p className="subtitle">
             In any case, use the search below to find a book you like and select a theme/subject/aspect. Upon doing so, you will be recommended books that share these characteristics.
           </p>
+          <Info /> 
           <SearchForm query={query} setQuery={setQuery} handleSearch={handleSearch} />
           {loading ? (
             <div className="loader-container">

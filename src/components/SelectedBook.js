@@ -23,11 +23,17 @@ const SelectedBook = ({ book, handleSubjectClick }) => {
     <div className="book-container">
       <div className="book-details-container">
         <div className="book-image-container">
-          <img src={`https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg`} alt="Book Cover" />
+          {book.cover_i ? (
+            <img src={`https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg`} alt="Book Cover" />
+          ) : (
+            <div className="no-cover-selected">
+                  <p>Still no cover found :p</p>
+                </div>
+          )}
         </div>
         <div className="book-details">
           <h2>{book.title}</h2>
-          <p>{book.author_name}</p>
+          <p>{Array.isArray(book.author_name) ? book.author_name.join(', ') : book.author_name}</p>
           <p>Subjects:</p>
           <ul className="subject-list">
             {book.subject ? (

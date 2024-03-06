@@ -42,7 +42,7 @@ const BookGrid = ({ books, handleBookSelect }) => {
                 </div>
               )}
               <p className="book-title">{book.title}</p>
-              <p className="book-author">{book.author_name}</p>
+              <p className="book-author">{Array.isArray(book.author_name) ? book.author_name.join(', ') : book.author_name}</p>
             </div>
           ))}
         </Slider>

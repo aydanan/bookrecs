@@ -19,6 +19,15 @@
   width: 100%;
   height: auto;
 }
+.no-cover-selected {
+  width: 200px;
+  height: 350px;
+  border: 3px dotted #372626;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 
 .book-details {
   max-width: 600px;
