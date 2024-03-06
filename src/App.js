@@ -6,7 +6,7 @@ import BookGrid from './components/BookGrid';
 import BookList from './components/BookList';
 import Info from './components/Info';
 
-import girl from '/Users/aydanyagublu/book-recs/src/components/images/girlbook.png'
+import girl from '/Users/aydanyagublu/book-recs/src/components/images/girlbook.png';
 
 import './App.css';
 
@@ -21,15 +21,22 @@ const App = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [selectedSubject, setSelectedSubject] = useState('');
   const [subjectBooksLoaded, setSubjectBooksLoaded] = useState(false);
-  const [error, setError] = useState(null); // State for handling errors
+  const [error, setError] = useState(null); 
 
   const subjectBooksRef = useRef(null);
+  const bookGridRef = useRef(null);
 
   useEffect(() => {
     if (subjectBooksLoaded && subjectBooksRef.current) {
       subjectBooksRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [subjectBooksLoaded]);
+
+  useEffect(() => {
+    if (!loading && bookGridRef.current) {
+      bookGridRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [loading]);
 
   const handleSearch = async () => {
     setLoading(true);
@@ -40,9 +47,9 @@ const App = () => {
       setSelectedBook(null);
       setSubjectBooks([]);
       setShowSubjectSearch(false);
-      setSelectedSubject(''); 
+      setSelectedSubject('');
     } catch (error) {
-      setError('Error fetching data, please try again.'); // Set error state
+      setError('Error fetching data, please try again.'); 
     } finally {
       setLoading(false);
     }
@@ -52,7 +59,7 @@ const App = () => {
     setSelectedBook(book);
     setSearchResults([]);
     setShowSubjectSearch(true);
-    setSelectedSubject(''); 
+    setSelectedSubject('');
   };
 
   const handleSubjectSearch = async () => {
@@ -64,7 +71,7 @@ const App = () => {
       const data = await response.json();
       setSubjectBooks(data.works);
     } catch (error) {
-      setError('Error fetching subject data, please try again.'); // Set error state
+      setError('Error fetching subject data, please try again.'); 
     } finally {
       setSubjectLoading(false);
       setSubjectBooksLoaded(true);
@@ -72,9 +79,9 @@ const App = () => {
   };
 
   const handleSubjectClick = async (subject) => {
-    if (subject.trim() !== "") { 
-      setSelectedSubject(subject); 
-      setSubjectQuery(subject.replace(/\s/g, '_').toLowerCase()); 
+    if (subject.trim() !== '') {
+      setSelectedSubject(subject);
+      setSubjectQuery(subject.replace(/\s/g, '_').toLowerCase());
       setSubjectLoading(true);
       try {
         const response = await fetch(
@@ -83,10 +90,10 @@ const App = () => {
         const data = await response.json();
         setSubjectBooks(data.works);
       } catch (error) {
-        setError('Error fetching subject data, please try again.'); // Set error state
+        setError('Error fetching subject data, please try again.');
       } finally {
         setSubjectLoading(false);
-        setSubjectBooksLoaded(true); 
+        setSubjectBooksLoaded(true);
       }
     }
   };
@@ -105,14 +112,14 @@ const App = () => {
           <p className="subtitle">
             In any case, use the search below to find a book you like and select a theme/subject/aspect. Upon doing so, you will be recommended books that share these characteristics.
           </p>
-          <Info /> 
+          <Info />
           <SearchForm query={query} setQuery={setQuery} handleSearch={handleSearch} />
           {loading ? (
             <div className="loader-container">
               <Loader className="loader" />
             </div>
           ) : (
-            <div className="book-grid-container">
+            <div className="book-grid-container" ref={bookGridRef}>
               <BookGrid books={searchResults} handleBookSelect={handleBookSelect} />
             </div>
           )}
@@ -124,7 +131,7 @@ const App = () => {
       {selectedSubject && !subjectLoading && (
         <div className="subject-books" ref={subjectBooksRef}>
           <h2>Recommended Books for '{selectedSubject}'</h2>
-          {error ? ( // Check if there's an error
+          {error ? (
             <p>{error}</p>
           ) : (
             Array.isArray(subjectBooks) && subjectBooks.length > 0 ? (
